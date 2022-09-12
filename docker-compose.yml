@@ -1,0 +1,14 @@
+---
+version: '3'
+
+services:
+  pipeline-assistant:
+    image: webex-pipeline-assistant:latest
+    container_name: pipeline-assistant
+    environment:
+    - WEBEX_TEAMS_ACCESS_TOKEN=your_access_token
+    - WEBEX_ROOMS=["Test Room"]
+    - WEBEX_PEOPLE=["email@cisco.com"]
+    - RESULT_PATH=/results
+    volumes:
+    - "/tmp/results:/results"
