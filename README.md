@@ -46,6 +46,8 @@ You can add as many people and room you need. (Avoid spamming though :O )
 
 ## Example
 
+### Gitlab
+
 If you use gitlab, here is an example I use for one of my own service:
 
 * I build something (It does not matter what, here it's a vlan package for NSO)
@@ -85,7 +87,28 @@ build:
       - results
 ```
 
+### Github
+
 if you use github, it is pretty much similar. You just need to build the container and mount the volume.
+
+```yaml
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run the Docker image
+      run: docker run -e "WEBEX_TEAMS_ACCESS_TOKEN=${{ secrets.WEBEX_TOKEN }}" -e "WEBEX_ROOMS=[\"Webex-assistant-pipeline\"]" -e "WEBEX_PEOPLE=[\"apaulin@cisco.com\"]" -e "RESULT_PATH=/results" -v ${PWD}:/results gwynbl31dd/webex-pipeline-assistant:latest
+```
 
 ## Development
 
