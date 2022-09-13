@@ -13,4 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag gwynbl31dd/webex-pipeline-assistant:$(date +%s)
+      run: docker build . --file Dockerfile --tag gwynbl31dd/webex-pipeline-assistant:beta
+    - name: Run the Docker image
+      run: docker run -e "WEBEX_TEAMS_ACCESS_TOKEN=${{ secrets.WEBEX_TOKEN }}" -e "WEBEX_ROOMS=[\"Webex-assistant-pipeline\"]" -e "WEBEX_PEOPLE=[\"apaulin@cisco.com\"]" -e "RESULT_PATH=/results" -v ${PWD}:/results gwynbl31dd/webex-pipeline-assistant:beta
