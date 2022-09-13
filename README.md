@@ -1,4 +1,3 @@
----
 # pipeline_assistant
 
 [![CI](https://github.com/Gwynbl31dd//webex-pipeline-assistant/actions/workflows/docker-image.yml/badge.svg)](https://github.com/Gwynbl31dd//webex-pipeline-assistant/actions/workflows/docker-image.yml)
@@ -24,7 +23,7 @@ There is also a ``docker-compose.yml`` file you can use as an example.
 You can run it with a single command. I tried to make it as simple as possible for an easy integration with gitlab, concourse or github actions.
 
 ```bash
-docker run -e "WEBEX_TEAMS_ACCESS_TOKEN=$WEBEX_TEAMS_ACCESS_TOKEN" -e "WEBEX_ROOMS=[\"Room name\"]" -e "WEBEX_PEOPLE=[\"your@mail.com\"]" -e "RESULT_PATH=/results" -v /tmp/results:/results gwynbl31dd/webex-pipeline-assistant:master
+docker run -e "WEBEX_TEAMS_ACCESS_TOKEN=$WEBEX_TEAMS_ACCESS_TOKEN" -e "WEBEX_ROOMS=[\"Room name\"]" -e "WEBEX_PEOPLE=[\"your@mail.com\"]" -e "RESULT_PATH=/results" -v ${PWD}/results:/results gwynbl31dd/webex-pipeline-assistant:master
 ```
 
 You can add as many people and room you need. (Avoid spamming though) 
