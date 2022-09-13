@@ -32,10 +32,17 @@ You can add as many people and room you need. (Avoid spamming though :O )
 
 ## Environment variables
 
+### Required
+
 * WEBEX_TEAMS_ACCESS_TOKEN: This is your token (Preferably a bot, but you can use a personal access token if you which)
 * WEBEX_ROOMS: List of rooms where you will publish the results. Example: ``["Room1","Room2",...]``
 * WEBEX_PEOPLE: List of people you want to add to these rooms, you need to use their email address. Example: ``["email@1.com","email@2.com",...]``
 * RESULT_PATH: The path were you want to grab the results. (Or where you mounted them if using docker) Example: ``/tmp/results``
+
+### Optional
+
+* WEBEX_HTTPS_PROXY: If you use a proxy, that's where you put it. Example ``http:myproxy.local:8080``
+* WEBEX_HTTP_PROXY: If you use a proxy (in http), that's where you put it. Example ``http:myproxy.local:8080``
 
 ## Example
 
