@@ -41,6 +41,7 @@ You can add as many people and room you need. (Avoid spamming though :O )
 
 ### Optional
 
+* WEBEX_CUSTOM_MESSAGE: Modify the message by a custom one. Example ``"This is webex"``
 * WEBEX_HTTPS_PROXY: If you use a proxy, that's where you put it. Example ``http:myproxy.local:8080``
 * WEBEX_HTTP_PROXY: If you use a proxy (in http), that's where you put it. Example ``http:myproxy.local:8080``
 
