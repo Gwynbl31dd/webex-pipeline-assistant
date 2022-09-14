@@ -6,7 +6,7 @@ This project is a docker image that can publish any test results to Cisco Webex.
 
 The only requirement is populating the environment variable and having a webex token available. (Easy... I know...)
 
-I recommend creating a bot and using it's token [Webex-Bot](https://developer.webex.com/docs/bots)
+I recommend creating a bot and using its token [Webex-Bot](https://developer.webex.com/docs/bots)
 
 ## Build the docker image
 
