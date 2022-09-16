@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.9-alpine
 LABEL maintainer="apaulin <paulin.anthony@gmail.com>"
 
 ENV WEBEX_TEAMS_ACCESS_TOKEN="your_token"
