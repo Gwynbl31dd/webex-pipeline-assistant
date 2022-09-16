@@ -8,6 +8,8 @@ The only requirement is populating the environment variable and having a webex t
 
 I recommend creating a bot and using its token [Webex-Bot](https://developer.webex.com/docs/bots)
 
+![webex_pipeline_assistant](./images/webex_assistant.PNG)
+
 ## Build the docker image
 
 You can download the image directly from [docker-hub](https://hub.docker.com/r/gwynbl31dd/webex-pipeline-assistant)
@@ -44,6 +46,7 @@ You can add as many people and room you need. (Avoid spamming though :O )
 * WEBEX_CUSTOM_MESSAGE: Modify the message by a custom one. Example ``"This is webex"``
 * WEBEX_HTTPS_PROXY: If you use a proxy, that's where you put it. Example ``http:myproxy.local:8080``
 * WEBEX_HTTP_PROXY: If you use a proxy (in http), that's where you put it. Example ``http:myproxy.local:8080``
+* XUNIT_PATH: Path to your xunit/junit file that should be included into the message Example ``/results/results.xml``
 
 ## Example
 
@@ -109,6 +112,25 @@ jobs:
     - uses: actions/checkout@v3
     - name: Run the Docker image
       run: docker run -e "WEBEX_TEAMS_ACCESS_TOKEN=${{ secrets.WEBEX_TOKEN }}" -e "WEBEX_ROOMS=[\"Webex-assistant-pipeline\"]" -e "WEBEX_PEOPLE=[\"apaulin@cisco.com\"]" -e "RESULT_PATH=/results" -v ${PWD}:/results gwynbl31dd/webex-pipeline-assistant:latest
+```
+
+### XUnit report
+
+The container can send you the report as an ascii table 
+
+```
++-------------------+-------+----------+--------+---------+-------+
+|       Suite       | Total | Failures | Errors | Skipped | Time  |
++-------------------+-------+----------+--------+---------+-------+
+| COBOL Code Review |  45   |    17    |        |         | 0.001 |
+|   Another suite   |  90   |    5     |        |         | 0.001 |
++-------------------+-------+----------+--------+---------+-------+
+```
+
+Simply add the ``XUNIT_PATH`` variable:
+
+```
+docker run -e "XUNIT_PATH=/results/result_junit.xml" -e "WEBEX_TEAMS_ACCESS_TOKEN=$WEBEX_TEAMS_ACCESS_TOKEN" -e "WEBEX_ROOMS=[\"Room name\"]" -e "WEBEX_PEOPLE=[\"your@mail.com\"]" -e "RESULT_PATH=/results" -v ${PWD}/results:/results gwynbl31dd/webex-pipeline-assistant:latest
 ```
 
 ## Development
