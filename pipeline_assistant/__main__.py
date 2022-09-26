@@ -60,9 +60,10 @@ def main() -> None:  # pragma: no cover
     for room in available_rooms:
         print(f"Send message to {room.title}")
         # Post a message to the new room, and upload a file
-        api.messages.create(room.id, text=message, files=[archive])
         if xunit_path:
-            api.messages.create(room.id, markdown=xunit_result)
+            api.messages.create(room.id, text=message,markdown=xunit_result, files=[archive])
+        else:
+            api.messages.create(room.id, text=message, files=[archive])
 
 def format(path):
     doc = minidom.parse(path)
