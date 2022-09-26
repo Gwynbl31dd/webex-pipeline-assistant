@@ -55,14 +55,16 @@ def main() -> None:  # pragma: no cover
         message="New results available!"
 
     if xunit_path:
-        message = format(xunit_path,message)
+        xunit_result = format(xunit_path)
 
     for room in available_rooms:
         print(f"Send message to {room.title}")
         # Post a message to the new room, and upload a file
         api.messages.create(room.id, text=message, files=[archive])
+        if xunit_path:
+            api.messages.create(room.id, text=xunit_result)
 
-def format(path,message):
+def format(path):
     doc = minidom.parse(path)
     test_suites = doc.getElementsByTagName("testsuite")
     # Header for the table
@@ -75,6 +77,7 @@ def format(path,message):
     headers = [suite_name_header, tests_header, failures_header, errors_header, skipped_header, time_header]
     # Table
     table = []
+    message = 'xunit results:'
     for test_suite in test_suites:
         # use the test_suite attributes to generate a table row
         test_suite_name = test_suite.getAttribute("name")
