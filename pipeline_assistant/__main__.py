@@ -86,8 +86,8 @@ def format(path,message):
         # create a table row
         row = [test_suite_name, test_suite_tests, test_suite_failures, test_suite_errors, test_suite_skipped, test_suite_time]
         table.append(row)
-        formated_table = tabulate(table, headers=headers,tablefmt="html")
-        message += "\n"+"```html"+formated_table+"```"
+        formated_table = tabulate(table, headers=headers,tablefmt="github")
+        message += "\n"+"```\n"+formated_table+"\n```"
     return message
 
 if __name__ == "__main__":  # pragma: no cover
