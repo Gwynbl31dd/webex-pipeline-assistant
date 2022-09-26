@@ -61,7 +61,9 @@ def main() -> None:  # pragma: no cover
         print(f"Send message to {room.title}")
         # Post a message to the new room, and upload a file
         if xunit_path:
-            api.messages.create(room.id, text=message,markdown=xunit_result, files=[archive])
+            # If the message has markdown, we first send the message, then the file with the results
+            api.messages.create(room.id, text=message)
+            api.messages.create(room.id, markdown=xunit_result, files=[archive])
         else:
             api.messages.create(room.id, text=message, files=[archive])
 
