@@ -62,7 +62,7 @@ def main() -> None:  # pragma: no cover
         # Post a message to the new room, and upload a file
         api.messages.create(room.id, text=message, files=[archive])
         if xunit_path:
-            api.messages.create(room.id, text=xunit_result)
+            api.messages.create(room.id, markdown=xunit_result)
 
 def format(path):
     doc = minidom.parse(path)
@@ -91,7 +91,7 @@ def format(path):
         table.append(row)
         formated_table = tabulate(table, headers=headers,tablefmt="github")
         message += "\n"+formated_table
-    return "```\n"+message+"\n```"
+    return "```"+message+"```"
 
 if __name__ == "__main__":  # pragma: no cover
     main()
