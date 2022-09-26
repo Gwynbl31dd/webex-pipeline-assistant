@@ -55,14 +55,19 @@ def main() -> None:  # pragma: no cover
         message="New results available!"
 
     if xunit_path:
-        message = format(xunit_path,message)
+        xunit_result = format(xunit_path)
 
     for room in available_rooms:
         print(f"Send message to {room.title}")
         # Post a message to the new room, and upload a file
-        api.messages.create(room.id, text=message, files=[archive])
+        if xunit_path:
+            # If the message has markdown, we first send the message, then the file with the results
+            api.messages.create(room.id, text=message)
+            api.messages.create(room.id, markdown=xunit_result, files=[archive])
+        else:
+            api.messages.create(room.id, text=message, files=[archive])
 
-def format(path,message):
+def format(path):
     doc = minidom.parse(path)
     test_suites = doc.getElementsByTagName("testsuite")
     # Header for the table
@@ -75,6 +80,7 @@ def format(path,message):
     headers = [suite_name_header, tests_header, failures_header, errors_header, skipped_header, time_header]
     # Table
     table = []
+    message = 'xunit results:'
     for test_suite in test_suites:
         # use the test_suite attributes to generate a table row
         test_suite_name = test_suite.getAttribute("name")
@@ -86,9 +92,9 @@ def format(path,message):
         # create a table row
         row = [test_suite_name, test_suite_tests, test_suite_failures, test_suite_errors, test_suite_skipped, test_suite_time]
         table.append(row)
-        formated_table = tabulate(table, headers=headers,tablefmt="pretty")
-        message += '\n'+formated_table
-    return message
+        formated_table = tabulate(table, headers=headers,tablefmt="github")
+        message += "\n"+formated_table
+    return "```raw"+message
 
 if __name__ == "__main__":  # pragma: no cover
     main()
