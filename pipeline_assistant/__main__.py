@@ -91,7 +91,7 @@ def format(path):
         table.append(row)
         formated_table = tabulate(table, headers=headers,tablefmt="github")
         message += "\n"+formated_table
-    return message
+    return "```raw"+message+"```"
 
 if __name__ == "__main__":  # pragma: no cover
     main()
